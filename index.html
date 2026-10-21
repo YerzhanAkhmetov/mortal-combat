@@ -1,118 +1,233 @@
 <!DOCTYPE html>
 <html lang="ru">
   <head>
-    <meta charset="UTF-8 " />
-    <title>Memory Game</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mortal Kombat — Memory</title>
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
+    <!-- ЭКРАН СТАРТА -->
     <div class="mainPage">
-      <!--   <embed SRC="music/заставка/mortal-kombat-main-theme-ansia-orchestra-cover_(muztron.com).mp3" AUTOSTART="TRUE"> -->
       <img
-        class="dragon"
+        class="dragon left"
         src="gif/UnpleasantTautLangur-size_restricted.gif"
         alt=""
       />
-      <div class="gameOver1" onclick="firstClick()">CLICK START</div>
-      <!-- <button class="startGame" onclick="handleButtonClick()">Start</button> -->
-      <img class="scorp" src="gif/tumblr_nnfg8dgo0z1snpu61o3_500.gif" alt="" />
+      <div class="start-block">
+        <h1 class="game-title">MORTAL<br /><span>KOMBAT</span></h1>
+        <p class="game-subtitle">Memory Kombat</p>
+        <div class="gameOver1" onclick="firstClick()">CLICK&nbsp;START</div>
+      </div>
+      <img
+        class="dragon right"
+        src="gif/tumblr_nnfg8dgo0z1snpu61o3_500.gif"
+        alt=""
+      />
     </div>
 
+    <!-- ЭКРАН ИГРЫ -->
     <div class="box">
-      <div class="sideA">
-        <div class="sideB">
-          <div class="text">Try:</div>
-          <div class="score">9</div>
+      <!-- Анимированный боец сбоку -->
+      <img
+        class="fighter-gif"
+        src="gif/steamworkshop_webupload_previewfile_426506491_preview.gif"
+        alt=""
+      />
+
+      <!-- Панель состояния (HUD) -->
+      <header class="hud">
+        <div class="hud-item">
+          <span class="hud-label">ROUND</span>
+          <span class="hud-value" id="level">1</span>
         </div>
 
-        <img
-          class="scorpion"
-          src="gif/steamworkshop_webupload_previewfile_426506491_preview.gif"
-          alt=""
-        />
-      </div>
+        <div class="hud-item">
+          <span class="hud-label">TRIES</span>
+          <span class="hud-value" id="tries">3</span>
+        </div>
 
+        <div class="hud-item hud-health">
+          <span class="hud-label">HEALTH</span>
+          <div class="health-bar">
+            <div class="health-fill" id="healthFill"></div>
+          </div>
+          <span class="score" id="score">24</span>
+        </div>
+
+        <div class="hud-item">
+          <span class="hud-label">TIME</span>
+          <span class="hud-value" id="timer">03:30</span>
+        </div>
+
+        <div class="hud-item">
+          <span class="hud-label">MOVES</span>
+          <span class="hud-value" id="moves">0</span>
+        </div>
+
+        <!-- Кнопка звука — внутри панели, чтобы ни на что не наезжала -->
+        <button class="mute-btn" id="muteBtn" onclick="toggleMute()" title="Звук">🔊</button>
+      </header>
+
+      <!-- ИГРОВОЕ ПОЛЕ: 12 бойцов (24 карты), единый стиль -->
       <section class="memory-game">
-        <!-- Объявляем карты -->
         <div class="memory-card" data-framework="scorpion">
-          <img class="front-face" src="img/scorpion.jpg" alt="Scorpion" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+          <img class="front-face" src="img/fighters/scorpion.png" alt="Scorpion" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
         <div class="memory-card" data-framework="scorpion">
-          <img class="front-face" src="img/scorpion.jpg" alt="Scorpion" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+          <img class="front-face" src="img/fighters/scorpion.png" alt="Scorpion" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
 
-        <div class="memory-card" data-framework="smoke">
-          <img class="front-face" src="img/smoke.jpg" alt="Smoke" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+        <div class="memory-card" data-framework="subzero">
+          <img class="front-face" src="img/fighters/subzero.png" alt="Sub-Zero" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
-        <div class="memory-card" data-framework="smoke">
-          <img class="front-face" src="img/smoke.jpg" alt="Smoke" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
-        </div>
-
-        <div class="memory-card" data-framework="sub">
-          <img class="front-face" src="img/sub.jpg" alt="Sub" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
-        </div>
-        <div class="memory-card" data-framework="sub">
-          <img class="front-face" src="img/sub.jpg" alt="Sub" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
-        </div>
-
-        <div class="memory-card" data-framework="kenshi">
-          <img class="front-face" src="img/kenshi.jpg" alt="Kenshi" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
-        </div>
-        <div class="memory-card" data-framework="kenshi">
-          <img class="front-face" src="img/kenshi.jpg" alt="Kenshi" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
-        </div>
-
-        <div class="memory-card" data-framework="kano">
-          <img class="front-face" src="img/kano.jpg" alt="Kano" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
-        </div>
-        <div class="memory-card" data-framework="kano">
-          <img class="front-face" src="img/kano.jpg" alt="Kano" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+        <div class="memory-card" data-framework="subzero">
+          <img class="front-face" src="img/fighters/subzero.png" alt="Sub-Zero" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
 
         <div class="memory-card" data-framework="raiden">
-          <img class="front-face" src="img/raiden.jpg" alt="Raiden" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+          <img class="front-face" src="img/fighters/raiden.png" alt="Raiden" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
         <div class="memory-card" data-framework="raiden">
-          <img class="front-face" src="img/raiden.jpg" alt="Raiden" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+          <img class="front-face" src="img/fighters/raiden.png" alt="Raiden" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
-        <div class="memory-card" data-framework="Kuanchi">
-          <img class="front-face" src="img/Kuanchi.jpg" alt="Kuanchi" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+
+        <div class="memory-card" data-framework="liukang">
+          <img class="front-face" src="img/fighters/liukang.png" alt="Liu Kang" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
-        <div class="memory-card" data-framework="Kuanchi">
-          <img class="front-face" src="img/Kuanchi.jpg" alt="Kuanchi" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+        <div class="memory-card" data-framework="liukang">
+          <img class="front-face" src="img/fighters/liukang.png" alt="Liu Kang" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
-        <div class="memory-card" data-framework="shaoKhan">
-          <img class="front-face" src="img/shaoKhan.jpg" alt="ShaoKhan" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+
+        <div class="memory-card" data-framework="kitana">
+          <img class="front-face" src="img/fighters/kitana.png" alt="Kitana" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
-        <div class="memory-card" data-framework="shaoKhan">
-          <img class="front-face" src="img/shaoKhan.jpg" alt="ShaoKhan" />
-          <img class="back-face" src="img/dragon.gif" alt="Dragon" />
+        <div class="memory-card" data-framework="kitana">
+          <img class="front-face" src="img/fighters/kitana.png" alt="Kitana" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="jax">
+          <img class="front-face" src="img/fighters/jax.png" alt="Jax" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="jax">
+          <img class="front-face" src="img/fighters/jax.png" alt="Jax" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="reptile">
+          <img class="front-face" src="img/fighters/reptile.png" alt="Reptile" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="reptile">
+          <img class="front-face" src="img/fighters/reptile.png" alt="Reptile" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="ermac">
+          <img class="front-face" src="img/fighters/ermac.png" alt="Ermac" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="ermac">
+          <img class="front-face" src="img/fighters/ermac.png" alt="Ermac" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="mileena">
+          <img class="front-face" src="img/fighters/mileena.png" alt="Mileena" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="mileena">
+          <img class="front-face" src="img/fighters/mileena.png" alt="Mileena" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="kunglao">
+          <img class="front-face" src="img/fighters/kunglao.png" alt="Kung Lao" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="kunglao">
+          <img class="front-face" src="img/fighters/kunglao.png" alt="Kung Lao" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="kano">
+          <img class="front-face" src="img/fighters/kano.png" alt="Kano" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="kano">
+          <img class="front-face" src="img/fighters/kano.png" alt="Kano" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+
+        <div class="memory-card" data-framework="kenshi">
+          <img class="front-face" src="img/fighters/kenshi.png" alt="Kenshi" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
+        </div>
+        <div class="memory-card" data-framework="kenshi">
+          <img class="front-face" src="img/fighters/kenshi.png" alt="Kenshi" />
+          <img class="back-face" src="img/dragon.gif" alt="" />
         </div>
       </section>
     </div>
 
-    <div class="gameOver">
-      <div class="gameOverText" onclick="mainClick()">GAME OVER</div>
+    <!-- ПЕРЕХОДНАЯ ВСПЫШКА (анимация перед финальным экраном) -->
+    <div class="flash" id="flash">
+      <img class="flash-dragon" src="img/dragon.gif" alt="" />
+      <span class="flash-text" id="flashText"></span>
     </div>
 
-    <div class="finishGame" onclick="mainClick()"></div>
+    <!-- ЭКРАН ПОРАЖЕНИЯ: Шао Кан добивает Скорпиона -->
+    <div class="gameOver" onclick="mainClick()">
+      <div class="fatality-scene">
+        <!-- Скорпион в стойке: после удара его отбрасывает -->
+        <div class="victim">
+          <img class="victim-img" src="img/ending/scorpion-stance.png" alt="Scorpion" />
+          <div class="blood-splash"></div>
+        </div>
+        <img class="kahn" src="img/ending/shaokahn.png" alt="Shao Kahn" />
+      </div>
+      <div class="gameOverText">
+        <span class="winner-name">SHAO KAHN WINS</span>
+        <span class="big-word blood">FATALITY</span>
+        <span class="screen-hint">нажми, чтобы начать заново</span>
+      </div>
+    </div>
 
+    <!-- ЭКРАН ПОБЕДЫ: Скорпион прошёл всех -->
+    <div class="finishGame" onclick="mainClick()">
+      <div class="victory-scene">
+        <!-- Шао Кан: получает огненный шар и падает -->
+        <div class="loser">
+          <img class="loser-img" src="img/ending/shaokahn.png" alt="Shao Kahn" />
+          <div class="fire-splash"></div>
+        </div>
+        <!-- огненный шар из руки Скорпиона -->
+        <div class="fireball"></div>
+        <img class="scorpion-win" src="img/ending/scorpion-win.png" alt="Scorpion" />
+      </div>
+      <div class="finishText">
+        <span class="winner-name">SCORPION WINS</span>
+        <span class="big-word gold">FLAWLESS<br />VICTORY</span>
+        <span class="screen-hint">нажми, чтобы начать заново</span>
+      </div>
+    </div>
+
+    <!-- Каменная рамка вокруг всей страницы -->
+    <div class="page-frame"></div>
+
+    <script src="frame.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
